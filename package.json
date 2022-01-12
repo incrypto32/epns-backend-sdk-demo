@@ -4,7 +4,8 @@
   "description": "Demo for EPNS Backend SDK",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start":"ts-node index.ts"
   },
   "author": "krishna@epns.io",
   "license": "ISC",

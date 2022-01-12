@@ -35,10 +35,6 @@ const epnsCommSettings: EPNSSettings = {
   contractAddress: process.env.EPNS_COMMUNICATOR_KOVAN_CONTRACT_ADDRESS!,
   contractABI: JSON.stringify(epnsCommABI),
 };
-console.log(
-  `PK : ${process.env.CHANNEL_PRIVATE_KEY!}\ncommContract : ${process.env
-    .EPNS_COMMUNICATOR_KOVAN_CONTRACT_ADDRESS!}\ncoreContract : ${process.env.EPNS_CORE_KOVAN_CONTRACT_ADDRESS!}`
-);
 
 const sdk = new epnsHelper(networkToMonitor, process.env.CHANNEL_PRIVATE_KEY!, settings, epnsCoreSettings, epnsCommSettings);
 app.use(bodyParser.json());
