@@ -1,0 +1,12 @@
+{
+    "recipient": "0xB85e77863c39dfB101b37a1F83F38aD64F9a4Dd2",
+    "title": "Backend SDK demo",
+    "message": "This is demo for EPNS Backend SDK",
+    "payloadTitle": "Backend SDK Demo",
+    "payloadMessage": "This is demo for [d:EPNS Backend SDK]",
+    "notificationType": 3,
+    "channelAddress": "0xB85e77863c39dfB101b37a1F83F38aD64F9a4Dd2",
+    "cta": "https://epns.io",
+    "img": null,
+    "simulate": false
+}

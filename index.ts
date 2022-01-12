@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import epnsCoreABI from "./epns_core_abi.json";
 import epnsCommABI from "./epns_comm_abi.json";
 import bodyParser from "body-parser";
+import payload from "./payload.json";
 import epnsHelper, { EPNSSettings, InfuraSettings, NetWorkSettings } from "@epnsproject/backend-sdk-staging";
 const app = express();
 
@@ -38,24 +39,31 @@ const epnsCommSettings: EPNSSettings = {
 
 const sdk = new epnsHelper(networkToMonitor, process.env.CHANNEL_PRIVATE_KEY!, settings, epnsCoreSettings, epnsCommSettings);
 app.use(bodyParser.json());
-app.post("/", async (req, res) => {
-  console.log("-----------EPNS Backend SDK Demo------------");
-  const payload = req.body;
-  console.log(payload);
-  await sdk.sendNotification(
-    payload.recipient,
-    payload.title,
-    payload.message,
-    payload.payloadTitle,
-    payload.payloadMessage,
-    payload.notificationType,
-    payload.channelAddress,
-    payload.cta,
-    payload.img,
-    payload.simulate,
-    { offChain: true }
-  );
-  res.json({ success: true });
+app.get("/", async (req, res) => {
+  try {
+    console.log("-----------EPNS Backend SDK Demo------------");
+    console.log(payload);
+    await sdk.sendNotification(
+      payload.recipient,
+      payload.title,
+      payload.message,
+      payload.payloadTitle,
+      payload.payloadMessage,
+      payload.notificationType,
+      payload.channelAddress,
+      payload.cta,
+      payload.img!,
+      payload.simulate,
+      { offChain: true }
+    );
+    console.log('Notification Sent!')
+    res.json({ success: true });
+  } catch (error) {
+    console.log(error)
+    res.json({ success: false })
+  }
+
+
 });
 
 app.listen("7000", () => {
