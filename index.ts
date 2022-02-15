@@ -37,7 +37,14 @@ const epnsCommSettings: EPNSSettings = {
   contractABI: JSON.stringify(epnsCommABI),
 };
 
-const sdk = new epnsHelper(networkToMonitor, process.env.CHANNEL_PRIVATE_KEY!, settings, epnsCoreSettings, epnsCommSettings);
+const sdk = new epnsHelper(
+  networkToMonitor,
+  process.env.CHANNEL_PRIVATE_KEY!,
+  process.env.CHANNEL_ADDRESS!,
+  settings,
+  epnsCoreSettings,
+  epnsCommSettings
+);
 app.use(bodyParser.json());
 app.get("/", async (req, res) => {
   try {
@@ -50,20 +57,17 @@ app.get("/", async (req, res) => {
       payload.payloadTitle,
       payload.payloadMessage,
       payload.notificationType,
-      payload.channelAddress,
       payload.cta,
       payload.img!,
       payload.simulate,
       { offChain: true }
     );
-    console.log('Notification Sent!')
+    console.log("Notification Sent!");
     res.json({ success: true });
   } catch (error) {
-    console.log(error)
-    res.json({ success: false })
+    console.log(error);
+    res.json({ success: false });
   }
-
-
 });
 
 app.listen("7000", () => {
