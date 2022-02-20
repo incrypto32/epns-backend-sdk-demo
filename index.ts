@@ -4,7 +4,7 @@ import epnsCoreABI from "./epns_core_abi.json";
 import epnsCommABI from "./epns_comm_abi.json";
 import bodyParser from "body-parser";
 import payload from "./payload.json";
-import epnsHelper, { EPNSSettings, InfuraSettings, NetWorkSettings } from "@epnsproject/backend-sdk-staging";
+import epnsHelper, { EPNSSettings, InfuraSettings, NetWorkSettings } from "@epnsproject/backend-sdk";
 const app = express();
 
 dotenv.config();
@@ -25,15 +25,15 @@ const settings: NetWorkSettings = {
 
 // EPNSSettings settings contains details on EPNS network, contract address and contract ABI
 const epnsCoreSettings: EPNSSettings = {
-  network: "kovan",
-  contractAddress: process.env.EPNS_CORE_KOVAN_CONTRACT_ADDRESS!,
+  network: "homestead",
+  contractAddress: process.env.EPNS_CORE_CONTRACT_ADDRESS!,
   contractABI: JSON.stringify(epnsCoreABI),
 };
 
 // EPNSSettings communicator contains details on EPNS network, contract address and contract ABI
 const epnsCommSettings: EPNSSettings = {
-  network: "kovan",
-  contractAddress: process.env.EPNS_COMMUNICATOR_KOVAN_CONTRACT_ADDRESS!,
+  network: "homestead",
+  contractAddress: process.env.EPNS_COMMUNICATOR_CONTRACT_ADDRESS!,
   contractABI: JSON.stringify(epnsCommABI),
 };
 
@@ -45,12 +45,13 @@ const sdk = new epnsHelper(
   epnsCoreSettings,
   epnsCommSettings
 );
+
 app.use(bodyParser.json());
 app.get("/", async (req, res) => {
   try {
     console.log("-----------EPNS Backend SDK Demo------------");
     console.log(payload);
-    await sdk.sendNotification(
+    const result = await sdk.sendNotification(
       payload.recipient,
       payload.title,
       payload.message,
@@ -62,7 +63,7 @@ app.get("/", async (req, res) => {
       payload.simulate,
       { offChain: true }
     );
-    console.log("Notification Sent!");
+    console.log(result);
     res.json({ success: true });
   } catch (error) {
     console.log(error);

@@ -5,7 +5,6 @@
     "payloadTitle": "Backend SDK Demo",
     "payloadMessage": "This is demo for [d:EPNS Backend SDK]",
     "notificationType": 3,
-    "channelAddress": "0xb24bfD3A7A9C41404b2ac35a0aF3cb69305C8615",
     "cta": "https://epns.io",
     "img": null,
     "simulate": false
